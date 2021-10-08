@@ -9,10 +9,15 @@ export const getNextRefIdChar = (queries: DataQuery[]): string => {
   }
 };
 
-export function addQuery(queries: DataQuery[], query?: Partial<DataQuery>): DataQuery[] {
+export function addQuery(queries: DataQuery[], query?: Partial<DataQuery>, datasource?: string): DataQuery[] {
   const q = query || {};
   q.refId = getNextRefIdChar(queries);
   q.hide = false;
+
+  if (!q.datasource && datasource) {
+    q.datasource = datasource;
+  }
+
   return [...queries, q as DataQuery];
 }
 
